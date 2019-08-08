@@ -10,7 +10,7 @@ public class AlunoBO implements BO<Aluno> {
 
     @Override
     public void validar(Aluno entidade) throws NegocioException {
-        if (aluno.getMatricula() == 0) {
+        if (entidade.getMatricula() == 0) {
             throw new NegocioException("Campo obrigatório MATRÍCULA não informado!");
         }
 
@@ -72,7 +72,7 @@ public class AlunoBO implements BO<Aluno> {
     }
 
     @Override
-    public Aluno consultar(int id) throws NegocioException {
+    public Aluno consultar(Aluno entidade) throws NegocioException {
         Aluno aluno = new Aluno();
         AlunoDAO dao = new AlunoDAO();
 
