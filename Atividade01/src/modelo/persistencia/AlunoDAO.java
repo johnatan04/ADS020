@@ -1,13 +1,13 @@
 package modelo.persistencia;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.entidades.Aluno;
-import modelo.entidades.DAO;
 
 public class AlunoDAO implements DAO<Aluno> {
 
@@ -38,22 +38,69 @@ public class AlunoDAO implements DAO<Aluno> {
 
     @Override
     public void incluir(Aluno entidade) throws DadosException {
-
+        try {
+            String sql = "INSERT INTO ALUNOS(MATRICULA, NOME) VALUES(?,?)";
+            Connection conexao = ConexaoBD.getConexao();
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setInt(1, entidade.getMatricula());
+            comando.setString(2, entidade.getNome());
+            comando.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DadosException("Erro ao incluir aluno!");
+        }
     }
 
     @Override
     public void alterar(Aluno entidade) throws DadosException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "UPDATE ALUNOS SET MATRICULA=?, NOME=? WHERE ID=?";
+            Connection conexao = ConexaoBD.getConexao();
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setInt(1, entidade.getMatricula());
+            comando.setString(2, entidade.getNome());
+            comando.setInt(3, entidade.getId());
+            comando.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DadosException("Erro ao alterar aluno!");
+        }
+
     }
 
     @Override
-    public void excluir(Aluno entidade) throws DadosException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void excluir(int id) throws DadosException {
+        try {
+            String sql = "DELETE FORM ALUNOS WHERE ID=?";
+            Connection conexao = ConexaoBD.getConexao();
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setInt(1, id);
+            comando.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DadosException("Erro ao excluir aluno!");
+        }
     }
 
     @Override
     public Aluno consultar(int id) throws DadosException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Aluno aluno = new Aluno();
+        try {
+            String sql = "SELECT * FROM ALUNOS WHERE ID=?";
+            Connection conexao = ConexaoBD.getConexao();
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setInt(1, id);
+            ResultSet resultado = comando.executeQuery();
+            if (resultado.next()) {
+                aluno.setId(resultado.getInt(1));
+                aluno.setMatricula(resultado.getInt(2));
+                aluno.setNome(resultado.getString(3));
+            }
+        } catch (SQLException ex) {
+            throw new DadosException("Erro ao consultar aluno");
+        }
+
+        return aluno;
+
     }
 
 }
+
+

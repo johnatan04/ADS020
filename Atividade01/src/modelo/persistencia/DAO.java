@@ -1,4 +1,4 @@
-package modelo.entidades;
+package modelo.persistencia;
 
 import java.util.List;
 import modelo.persistencia.DadosException;
@@ -11,7 +11,7 @@ public interface DAO<T> {
 
     void alterar(T entidade) throws DadosException;
 
-    void excluir(T entidade) throws DadosException;
+    void excluir(int id) throws DadosException;
 
     T consultar(int id) throws DadosException;
 }
