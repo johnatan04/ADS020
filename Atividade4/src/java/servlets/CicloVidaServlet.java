@@ -1,7 +1,6 @@
 
 package servlets;
 
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +13,7 @@ public class CicloVidaServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-  
+  resp.sendRedirect(req.getContextPath()+"/index.html");
         System.out.println("Executando CicloVidasServlet...");
 
     }
