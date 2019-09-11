@@ -24,7 +24,7 @@ public class IncluirAlunoServlet extends HttpServlet {
             throws ServletException, IOException {
         Incluir<Aluno> incluir = new ArrayIncluir<Aluno>();
         AlunoBO bo = new AlunoBO();
-        // tipo variavel e new; 
+        // tipo variavel  tipo new; 
 
         try {
             incluir = bo.listar();
@@ -72,8 +72,10 @@ public class IncluirAlunoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Aluno aluno = new Aluno();
+        aluno.setId(Integer.parseInt(request.getParameter("id"));
         aluno.setMatricula(Integer.parseInt(req.getParameter("matricula")));
         aluno.setNome(req.getParameter("nome"));
+        
     }
 
     @Override
