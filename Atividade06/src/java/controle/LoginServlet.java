@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Efetuar Login</h1>");
-            out.println("  <form action=\"/login\" method=\"post\">");
+            out.println("  <form action=\"/Atividade06\" method=\"post\">");
             out.println("  <div>");
             out.println("  <label>Matrícula:</label>");
             out.println("  <input type=\"text\" name=\"matricula\" ");
