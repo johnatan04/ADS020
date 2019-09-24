@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controle;
 
 import java.io.IOException;
@@ -9,8 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {
+/**
+ *
+ * @author 18114290048
+ */
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/Logout"})
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,23 +38,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Sistema Acadêmico</title>");
+            out.println("<title>Servlet LogoutServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Efetuar Login</h1>");
-            out.println("  <form action=\"/login\" method=\"post\">");
-            out.println("  <div>");
-            out.println("  <label>Matrícula:</label>");
-            out.println("  <input type=\"text\" name=\"matricula\" ");
-            out.println("  size=\"15\" value=\"\">");
-            out.println("</div>");
-            out.println("<div>");
-            out.println("<label>Senha:</label>");
-            out.println("<input type=\"password\" name=\"senha\" ");
-            out.println("size=\"15\" value=\"\">");
-            out.println("</div>");
-            out.println("<input type=\"submit\" value=\"Entrar\"/>");
-            out.println("</form>");
+            out.println("<h1>Servlet LogoutServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,27 +59,27 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+      
+        HttpSession session = request.getSession();
+session.invalidate();
+response.sendRedirect(request.getContextPath() + "/login");
     }
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String matricula = request.getParameter("matricula");
-
-        String senha = request.getParameter("senha");
-        if (matricula == null || senha == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-        } else {
-            HttpSession sessao = request.getSession();
-            sessao.setAttribute("autenticado", true);
-            response.sendRedirect(request.getContextPath() + "/");
-        }
+        processRequest(request, response);
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
+    }// </editor-fold>
 
 }
